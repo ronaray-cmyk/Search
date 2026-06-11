@@ -3,8 +3,61 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      background: linear-gradient(160deg, #e9defa 0%, #d8c7f0 100%);
+      color: #3a3a3a;
+      font-family: -apple-system, sans-serif;
+      text-align: center;
+      padding: 30px 20px;
+      margin: 0;
+      min-height: 100vh;
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 15px;
+      color: #6b6b6b;
+      margin-bottom: 30px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      max-width: 320px;
+      margin: 14px auto;
+      padding: 16px;
+      background: #ffffff;
+      color: #3a3a3a;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(150, 120, 200, 0.25);
+      cursor: pointer;
+    }
+    .btn:active {
+      background: #f3eefc;
+    }
+  </style>
 </head>
 <body>
-  <h2>АСТРОПСИХОЛОГИЯ, ТАРО</h2>
+  <h1>АСТРОПСИХОЛОГИЯ · ТАРО</h1>
+  <div class="subtitle">Консультации и разборы личности</div>
+
+  <button class="btn" onclick="Telegram.WebApp.openTelegramLink('https://t.me/ССЫЛКА1')">
+    Записаться на консультацию
+  </button>
+
+  <button class="btn" onclick="Telegram.WebApp.openTelegramLink('https://t.me/ССЫЛКА2')">
+    Натальная карта
+  </button>
+
+  <button class="btn" onclick="Telegram.WebApp.openTelegramLink('https://t.me/ССЫЛКА3')">
+    Расклад Таро
+  </button>
 </body>
 </html>
