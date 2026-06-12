@@ -1,68 +1,196 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    body {
-      background: linear-gradient(160deg, #e9defa 0%, #d8c7f0 100%);
-      font-family: 'Montserrat', sans-serif;
-      text-align: center;
-      padding: 50px 20px;
-      margin: 0;
-      min-height: 100vh;
-    }
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 34px;
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: 1px;
-      margin-bottom: 30px;
-      color: #4a3f5e;
-    }
-    .subtitle {
-      font-size: 15px;
-      font-weight: 400;
-      letter-spacing: 1px;
-      color: #7a6f8a;
-      margin-bottom: 40px;
-      text-transform: uppercase;
-    }
-    .btn {
-      display: block;
-      width: 100%;
-      max-width: 320px;
-      margin: 16px auto;
-      padding: 18px;
-      background: #ffffff;
-      color: #4a3f5e;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 16px;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      border: none;
-      border-radius: 16px;
-      box-shadow: 0 4px 16px rgba(150, 120, 200, 0.25);
-      cursor: pointer;
-    }
-    .btn:active {
-      background: #f3eefc;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Астропсихология, Таро</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(160deg, #e9defa 0%, #d8c7f0 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 20px 48px;
+    color: #3a2d5c;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: 1px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    color: #4a3a73;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 28px;
+    color: #6a5a92;
+  }
+
+  .screen { width: 100%; max-width: 420px; display: none; }
+  .screen.active { display: block; }
+
+  .card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 20px 18px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 6px 18px rgba(120, 90, 180, 0.18);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    border: none;
+    width: 100%;
+    text-align: left;
+  }
+  .card:active {
+    transform: scale(0.97);
+    box-shadow: 0 3px 10px rgba(120, 90, 180, 0.22);
+  }
+
+  .card-icon {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  .card-text { display: flex; flex-direction: column; }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #4a3a73;
+    margin-bottom: 2px;
+  }
+  .card-desc {
+    font-size: 13px;
+    font-weight: 400;
+    color: #8a7aa8;
+  }
+
+  .big-card {
+    justify-content: center;
+    padding: 26px 18px;
+  }
+  .big-card .card-title { font-size: 20px; }
+
+  .back-btn {
+    background: none;
+    border: none;
+    color: #6a5a92;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 0;
+  }
+  .back-btn:active { opacity: 0.6; }
+</style>
 </head>
 <body>
-  <h1>АСТРОПСИХОЛОГИЯ, ТАРО</h1>
+
+  <h1>Астропсихология,<br>Таро</h1>
   <div class="subtitle">Хочу консультацию:</div>
 
-  <button class="btn" onclick="Telegram.WebApp.openTelegramLink('https://t.me/oh_my_yana?text=Хочу астрологическую консультацию')">
-    Астрологический разбор
-  </button>
+  <div class="screen active" id="main">
+    <button class="card big-card" onclick="show('astro')">
+      <div class="card-text">
+        <div class="card-title">Астрологический разбор</div>
+      </div>
+    </button>
+    <button class="card big-card" onclick="show('taro')">
+      <div class="card-text">
+        <div class="card-title">Таро</div>
+      </div>
+    </button>
+  </div>
 
-  <button class="btn" onclick="Telegram.WebApp.openTelegramLink('https://t.me/oh_my_yana?text=Хочу расклад')">
-    Таро
-  </button>
+  <div class="screen" id="astro">
+    <button class="back-btn" onclick="show('main')">← назад</button>
+
+    <button class="card" onclick="order('Привет! Хочу разбор личности')">
+      <img class="card-icon" src="razbor lichnosti.png" alt="">
+      <div class="card-text">
+        <div class="card-title">Разбор личности</div>
+        <div class="card-desc">Кто ты и в чём твоя сила</div>
+      </div>
+    </button>
+
+    <button class="card" onclick="order('Привет! Хочу разбор на совместимость')">
+      <img class="card-icon" src="sovmestimost.png" alt="">
+      <div class="card-text">
+        <div class="card-title">Совместимость</div>
+        <div class="card-desc">Вы двое: про отношения</div>
+      </div>
+    </button>
+
+    <button class="card" onclick="order('Привет! Хочу подробную консультацию')">
+      <img class="card-icon" src="konsultaciya.png" alt="">
+      <div class="card-text">
+        <div class="card-title">Подробная консультация</div>
+        <div class="card-desc">Глубоко по всем сферам</div>
+      </div>
+    </button>
+  </div>
+
+  <div class="screen" id="taro">
+    <button class="back-btn" onclick="show('main')">← назад</button>
+
+    <button class="card" onclick="order('Привет! Хочу расклад на один вопрос')">
+      <img class="card-icon" src="odin vopros.png" alt="">
+      <div class="card-text">
+        <div class="card-title">Один вопрос</div>
+        <div class="card-desc">Быстрый ответ на запрос</div>
+      </div>
+    </button>
+
+    <button class="card" onclick="order('Привет! Хочу подробный расклад')">
+      <img class="card-icon" src="podrobnyy rasklad.png" alt="">
+      <div class="card-text">
+        <div class="card-title">Подробный расклад</div>
+        <div class="card-desc">Глубокое погружение в ситуацию</div>
+      </div>
+    </button>
+  </div>
+
+<script>
+  const tg = window.Telegram ? window.Telegram.WebApp : null;
+  if (tg) { tg.ready(); tg.expand(); }
+
+  function show(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function order(text) {
+    const url = 'https://t.me/oh_my_yana?text=' + encodeURIComponent(text);
+    if (tg && tg.openTelegramLink) {
+      tg.openTelegramLink(url);
+    } else {
+      window.open(url, '_blank');
+    }
+  }
+</script>
+
 </body>
 </html>
